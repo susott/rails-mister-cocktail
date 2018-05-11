@@ -1,9 +1,33 @@
-<h1>Mr. Cocktails</h1>
-<% @cocktails.each do |cocktail| %>
-<ul>
-<li><%= link_to cocktail.name, cocktail_path(cocktail)%></li>
-</ul>
-<% end %>
+<h1>Mr. Cocktail</h1>
 
-<br><br>
+<div class="wrapper"
+  <div class="container">
+    <div class="row">
+        <% @cocktails.each do |cocktail| %>
+      <div class="col-xs-12 col-sm-6 col-md-3">
+          <%= link_to cocktail_path(cocktail), class: "card-link" do%>
+            <% if cocktail.photo? %>
+              <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
+                url('<%= cl_image_path cocktail.photo, height: 200, width: 250, crop: :fill %>')">
+            <% else %>
+              <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),
+                url('<%= image_path "standard_cocktail.jpg", height: 200, width: 250, crop: :fill %>')">
+            <% end %>
+              <!-- <div class="card-category">Popular</div> -->
+                <div class="card-description">
+                  <h2><%= cocktail.name %></h2>
+                  <!-- <p>Very cool stuff, useful and smart</p> -->
+                </div>
+              </div>
+          <% end %>
+      </div> <!-- end col-->
+        <% end %>
+    </div> <!-- end row-->
+  </div> <!-- end container -->
+</div> <!-- end wrapper -->
+
+
+
+<div class="button">
 <%= link_to "Add a new cocktail", new_cocktail_path, class: "btn btn-info" %>
+</div>
