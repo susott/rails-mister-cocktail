@@ -11,7 +11,9 @@ gem 'simple_form'
 gem 'autoprefixer-rails'
 gem 'jquery-rails' # Add this line if you use Rails 5.1
 
-gem 'figaro'
+gem 'figaro' # for the config/application.yml file, to store API-Keys
+gem 'cloudinary' # for user picture storage
+gem 'carrierwave', '~> 1.2' # for user picture upload (to cloudinary)
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
