@@ -8,12 +8,8 @@ class DosesController < ApplicationController
     @cocktail = Cocktail.find(params[:cocktail_id])
     @dose = Dose.new(user_params)
     @dose.cocktail = @cocktail
-    if @dose.save
-      redirect_to cocktail_path(@cocktail)
-    else
-      # raise
-      render :new
-    end
+    @dose.save
+    redirect_to cocktail_path(@cocktail)
   end
 
   def destroy
@@ -22,7 +18,6 @@ class DosesController < ApplicationController
     # @cocktail = Cocktail.find(params[:cocktail_id])
     @dose.destroy
     redirect_to cocktail_path(@cocktail)
-
   end
 
 

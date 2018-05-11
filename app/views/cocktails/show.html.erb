@@ -2,22 +2,35 @@
   <div class="cocktail-card">
     <h1><%= @cocktail.name%></h1>
 
-    <div class="doses_and_image_wrapper">
-      <div class="doses">
-        <ul>
-          <% @cocktail.doses.each do |i| %>
-            <li>
-              <%= i.description %> <%= i.ingredient.name %> <%= link_to "Delete", dose_path(i), method: :delete, class: "btn btn-secondary btn-sm" %><br>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="image">
-        <%= cl_image_tag @cocktail.photo, height: 300, width: 400, crop: :fill %>
-      </div>
+
+    <div class="container doses_and_image_wrapper">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 doses">
+          <ul>
+            <% @cocktail.doses.each do |i| %>
+              <li>
+                <%= i.description %> <%= i.ingredient.name %> <%= link_to "Delete", dose_path(i), method: :delete, class: "btn btn-secondary btn-sm" %><br>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-md-6 image">
+          <%= cl_image_tag @cocktail.photo, height: 250, width: 300, crop: :fill %>
+        </div>
+      </div> <!-- end row -->
     </div> <!-- end doses and image -->
-    <br><br>
-    <%= link_to "Add dose", new_cocktail_dose_path(@cocktail), class: "btn btn-info btn-sm" %>
+
+      <div class="form-div">
+        <%-# simple_form_for [@cocktail, @dose], url: cocktail_doses_path, method: :post do |f| -%>
+
+        <%= simple_form_for [@cocktail, @dose], wrapper: :inline_form, html: { class: 'form-inline' }, url: cocktail_doses_path(@cocktail), method: :post do |f| %>
+          <%= f.association :ingredient, prompt: "Lemon juice", label: false%>
+          <%= f.input :description, placeholder: "2 cl", label: false, :input_html => {:rows => 1} %>
+          <%= f.submit "Add Dose", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+
+    <%-# link_to "Add dose", new_cocktail_dose_path(@cocktail), class: "btn btn-info btn-sm" -%>
     <%= link_to "Back to main page", cocktails_path, class: "btn btn-info btn-sm" %>
 
   </div> <!-- end cocktail-card" -->
